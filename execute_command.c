@@ -17,12 +17,14 @@ void execute_command(char **command, int *sh, int *errs, char **av, int *exit_co
   if (strcmp(command[0], "exit") == 0)
     {
       free_command(command);
+      *exit_code = 0;
       *sh = 0;
       return;
     }
   if (strcmp(command[0], "env") == 0)
     {
       penvf();
+      *exit_code = 0;
       free_command(command);
       return;
     }
