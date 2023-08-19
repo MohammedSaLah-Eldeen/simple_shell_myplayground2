@@ -3,6 +3,7 @@
 int main(void)
 {
   int shell = 1;
+  int errors = 0;
   char **command;
   int i;
 

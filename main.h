@@ -15,11 +15,11 @@ extern char **environ;
 
 char **fetch_command(int *sh);
 void stripf(char *line);
-char **tokenizef(char *line);
+char **tokenizef(char **line);
 int isexef(char **cmdname);
 void findpathf(char **cmdname);
 void penvf(void);
-void execute_command(char **command, int *sh, int *errs, char **av);
+void execute_command(char **command, int *sh, int *errs, char **av, int *exit_code);
 void free_command(char **command);
 
 #endif /*_MAIN_H_*/

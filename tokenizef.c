@@ -6,28 +6,33 @@
  * @line: string to be tokenized, delimiter is a space.
  * Return: an array pointers that consists of the command tokens.  
  */
-char **tokenizef(char *line)
+char **tokenizef(char **line)
 {
-  char *token;
-  char **command;
-  int i = 0;
+  char *tokena;
+  char *tokenb;
+  char *linecp = strdup(*line);
+  char **command = NULL;
+  int i;
 
   if (line == NULL)
     return (NULL);
   
-  token = strtok(line, " ");
-  command = malloc(2 * sizeof(char *));
+  tokena = strtok(*line, " ");
+  for (i = 0; tokena != NULL; i++)
+    tokena = strtok(NULL, " ");
 
-  while (token != NULL)
+
+  command = malloc((i + 1) * sizeof(char *));
+  tokenb = strtok(linecp, " ");
+  for (i = 0; tokenb != NULL; i++)
     {
-      command = realloc(command, (i + 2) * sizeof(char *));
-      command[i] = strdup(token);
-      i++;
-      token = strtok(NULL, " ");
+      command[i] = strdup(tokenb);
+      tokenb = strtok(NULL, " ");
     }
 
   command[i] = NULL;
-  free(line);
+  free(*line);
+  free(linecp);
 
   return (command);
 }

@@ -1,0 +1,40 @@
+==81095== Memcheck, a memory error detector
+==81095== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==81095== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==81095== Command: ./hsh
+==81095== Parent PID: 2672
+==81095== 
+==81095== 
+==81095== HEAP SUMMARY:
+==81095==     in use at exit: 52 bytes in 4 blocks
+==81095==   total heap usage: 23 allocs, 19 frees, 3,015 bytes allocated
+==81095== 
+==81095== 8 bytes in 1 blocks are indirectly lost in loss record 1 of 3
+==81095==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==81095==    by 0x48F238E: strdup (strdup.c:42)
+==81095==    by 0x109D31: tokenizef (tokenizef.c:27)
+==81095==    by 0x1096D4: fetch_command (fetch_command.c:36)
+==81095==    by 0x109A3E: main (main.c:21)
+==81095== 
+==81095== 12 bytes in 1 blocks are indirectly lost in loss record 2 of 3
+==81095==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==81095==    by 0x48F238E: strdup (strdup.c:42)
+==81095==    by 0x1097CB: findpathf (findpathf.c:23)
+==81095==    by 0x109542: execute_command (execute_command.c:38)
+==81095==    by 0x109A61: main (main.c:23)
+==81095== 
+==81095== 52 (32 direct, 20 indirect) bytes in 2 blocks are definitely lost in loss record 3 of 3
+==81095==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==81095==    by 0x109CE9: tokenizef (tokenizef.c:23)
+==81095==    by 0x1096D4: fetch_command (fetch_command.c:36)
+==81095==    by 0x109A3E: main (main.c:21)
+==81095== 
+==81095== LEAK SUMMARY:
+==81095==    definitely lost: 32 bytes in 2 blocks
+==81095==    indirectly lost: 20 bytes in 2 blocks
+==81095==      possibly lost: 0 bytes in 0 blocks
+==81095==    still reachable: 0 bytes in 0 blocks
+==81095==         suppressed: 0 bytes in 0 blocks
+==81095== 
+==81095== For lists of detected and suppressed errors, rerun with: -s
+==81095== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)

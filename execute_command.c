@@ -8,7 +8,7 @@
  * @errs: number of errors that occurred
  * @av: argument variable.
  */
-void execute_command(char **command, int *sh, int *errs, char **av)
+void execute_command(char **command, int *sh, int *errs, char **av, int *exit_code)
 {
   pid_t pid;
   int status;
@@ -31,7 +31,8 @@ void execute_command(char **command, int *sh, int *errs, char **av)
     {
       (*errs)++;
       fprintf(stderr, "%s: %d: %s: not found\n", av[0], *errs, command[0]);
-      execve(command[0], command, environ);
+      *exit_code = 127;
+      free_command(command);
       return;
     }
   else if (isexe == 1)
@@ -52,11 +53,22 @@ void execute_command(char **command, int *sh, int *errs, char **av)
       free_command(command);
       exit(EXIT_FAILURE);
     }
+    free_command(command);
     exit(EXIT_SUCCESS);
   }
   else
   {
     wait(&status);
+    if (WIFEXITED(status))
+      {
+	*exit_code = WEXITSTATUS(status);
+      }
+    else if (WIFSIGNALED(status))
+      {
+	fprintf(stderr, "Child process killed by signal: %d\n", WTERMSIG(status));
+	*exit_code = WTERMSIG(status);
+      }
+    free_command(command);
   }
 
 }

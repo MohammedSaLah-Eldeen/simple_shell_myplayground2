@@ -10,7 +10,7 @@
  */
 char **fetch_command(int *sh)
 {
-  char **command;
+  char **command = NULL;
   char *line = NULL;
   size_t size = 0;
   ssize_t read;
@@ -26,13 +26,12 @@ char **fetch_command(int *sh)
       *sh = 0;
       return (NULL);
     }
- 
   stripf(line);
   if (strlen(line) == 0 || read == -1)
     {
       free(line);
       return (NULL);
     }
-  command = tokenizef(line);
+  command = tokenizef(&line);
   return (command);  
 }

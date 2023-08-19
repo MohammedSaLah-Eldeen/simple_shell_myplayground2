@@ -16,7 +16,10 @@ int isexef(char **cmdname)
   char *trypath = NULL;
   
   if (access(*cmdname, X_OK) == 0)
-    return (2);
+    {
+      free(pathcp);
+      return (2);
+    }
 
   while (token != NULL)
     {
@@ -25,6 +28,8 @@ int isexef(char **cmdname)
 
       if (access(trypath, X_OK) == 0)
 	{
+	  free(pathcp);
+	  free(trypath);
 	  return (1);	  
 	}
       free(trypath);
