@@ -11,15 +11,18 @@
 int isexef(char **cmdname)
 {
   char *path = getenv("PATH");
-  char *pathcp = strdup(path);
-  char *token = strtok(pathcp, ":");
+  char *pathcp = NULL;
+  char *token = NULL;
   char *trypath = NULL;
   
-  if (access(*cmdname, X_OK) == 0)
-    {
-      free(pathcp);
-      return (2);
-    }
+  if (access(*cmdname, X_OK) == 0 && strstr(*cmdname, "/") != NULL)
+       return (2);
+
+  if (path == NULL)
+      return (0);
+
+  pathcp = strdup(path);
+  token = strtok(pathcp, ":");
 
   while (token != NULL)
     {

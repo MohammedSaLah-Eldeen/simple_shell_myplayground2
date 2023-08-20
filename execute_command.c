@@ -17,7 +17,6 @@ void execute_command(char **command, int *sh, int *errs, char **av, int *exit_co
   if (strcmp(command[0], "exit") == 0)
     {
       free_command(command);
-      *exit_code = 0;
       *sh = 0;
       return;
     }
@@ -52,11 +51,8 @@ void execute_command(char **command, int *sh, int *errs, char **av, int *exit_co
     {
       (*errs)++;
       perror("Execve failed");
-      free_command(command);
-      exit(EXIT_FAILURE);
     }
     free_command(command);
-    exit(EXIT_SUCCESS);
   }
   else
   {
